@@ -86,6 +86,25 @@ server.post('/api/actions', async (req, res) => {
     }
 })
 
+// Update Project by ID
+server.put('/api/projects/:id', async (req, res) => {
+    try{
+        const count = await db('projects')
+            .where({ id: req.params.id })
+            .update(req.body);
+        if (count > 0){
+            const project = await db('projects')
+                .where({ id: req.params.id})
+                .first();
+            res.status(200).json(project);
+        } else {
+            res.status(404).json({ message: 'Could not update this project bc I was not able to find it' });
+        }
+    } catch(error){
+        res.status(500).json(error)
+    }
+})
+
 const port = 3300;
 server.listen(port, function(){
     console.log(`Server listening on port 3300`);
