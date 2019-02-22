@@ -22,6 +22,16 @@ server.get('/api/projects', async (req, res) => {
     }
 })
 
+// Get Actions (Testing Purposes)
+server.get('/api/actions', async (req, res) => {
+    try{
+        const actions = await db('actions');
+        res.status(200).json(actions);
+    } catch(error) {
+        res.status(500).json(error);
+    }
+})
+
 // Get Project By ID
 server.get('/api/projects/:id', async (req, res) => {
     try{
@@ -33,6 +43,19 @@ server.get('/api/projects/:id', async (req, res) => {
         res.status(500).json(error);
     }
 });
+
+// Add a project
+server.post('/api/projects', async (req, res) => {
+    try{
+        const [id] = await db('projects').insert(req.body);
+        const project = await db('projects')
+            .where({ id })
+            .first();
+        res.status(201).json(project);
+    } catch(error) {
+        res.status(500).json(error);
+    }
+})
 
 const port = 3300;
 server.listen(port, function(){
