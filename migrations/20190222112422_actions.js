@@ -3,9 +3,9 @@ exports.up = function(knex, Promise) {
     return knex.schema.createTable('actions', function(tbl){
         tbl.increments();
         tbl.string('Name').notNullable();
-        tbl.string('Action Description', 255).notNullable();
-        tbl.string('Notes').notNullable();
-        tbl.boolean('Action Completed');
+        tbl.string('Description', 255);
+        tbl.string('Notes');
+        tbl.boolean('Completed');
 
         tbl
             .integer('project_id')
