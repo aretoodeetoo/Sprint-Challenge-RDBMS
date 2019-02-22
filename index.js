@@ -57,6 +57,19 @@ server.post('/api/projects', async (req, res) => {
     }
 })
 
+// Add an action
+server.post('/api/actions', async (req, res) => {
+    try {
+        const [id] = await db('actions').insert(req.body);
+        const action = await db('actions')
+            .where({ id })
+            .first();
+        res.status(201).json(action);
+    } catch(error) {
+        res.status(500).json(error);
+    }
+})
+
 const port = 3300;
 server.listen(port, function(){
     console.log(`Server listening on port 3300`);
