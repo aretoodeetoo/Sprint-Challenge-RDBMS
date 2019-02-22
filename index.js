@@ -140,6 +140,22 @@ server.delete('/api/projects/:id', async (req, res) => {
     }
 })
 
+// Delete Action
+server.delete('/api/actions/:id', async (req, res) => {
+    try {
+        const count = await db('actions')
+            .where({ id: req.params.id})
+            .del();
+        if (count > 0) {
+            res.status(204).end();
+        } else {
+            res.status(404).json({ message: 'Could not find action to delete'});
+        }
+    } catch(error) {
+        res.status(500).json(error);
+    }
+})
+
 const port = 3300;
 server.listen(port, function(){
     console.log(`Server listening on port 3300`);
