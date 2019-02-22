@@ -9,6 +9,8 @@ exports.up = function(knex, Promise) {
     tbl
         .string('Description')
         .notNullable();
+        
+    tbl.boolean('Completed');
   })
 };
 
