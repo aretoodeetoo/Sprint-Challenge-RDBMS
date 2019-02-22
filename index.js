@@ -44,6 +44,20 @@ server.get('/api/projects/:id', async (req, res) => {
     }
 });
 
+// Get actions for specific projects
+server.get('/api/projects/:id/actions', async (req, res) => {
+    try {
+        const actionList = await db('actions').where({ project_id: req.params.id});
+        if (actionList.length){
+            res.status(200).json(actionList);
+        } else {
+            res.status(404).json({ message: "No actions for this project" });
+        }
+    } catch(error){
+        res.status(500).json(error);
+    }
+})
+
 // Add a project
 server.post('/api/projects', async (req, res) => {
     try{
