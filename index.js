@@ -32,6 +32,18 @@ server.get('/api/actions', async (req, res) => {
     }
 })
 
+// Get Action by ID
+server.get('/api/actions/:id', async (req, res) => {
+    try{
+        const action = await db('actions')
+            .where({ id: req.params.id})
+            .first();
+        res.status(200).json(action);
+    } catch(error){
+        res.status(500).json(error);
+    }
+})
+
 // Get actions for specific projects
 server.get('/api/projects/:id/', async (req, res) => {
     try {
