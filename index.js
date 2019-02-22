@@ -7,7 +7,7 @@ const knexConfig = {
     useNullAsDefault: true,
 }
 
-const db = knex('knexConfig');
+const db = knex(knexConfig);
 
 const server = express();
 server.use(express.json());
